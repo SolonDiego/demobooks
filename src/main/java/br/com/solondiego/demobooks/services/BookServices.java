@@ -27,7 +27,7 @@ public class BookServices {
 
 	public List<BookVO> findAll() {
 
-		logger.info("Finding one book!");
+		logger.info("Buscando todos os livros!");
 
 		var books = DozerMapper.parseListObjects(repository.findAll(), BookVO.class);
 
@@ -38,10 +38,10 @@ public class BookServices {
 
 	public BookVO findById(Long id) {
 
-		logger.info("Finding one book!");
+		logger.info("Buscando um livro!");
 
 		var entity = repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 		var vo = DozerMapper.parseObject(entity, BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
 		return vo;
@@ -51,7 +51,7 @@ public class BookServices {
 		if (book == null)
 			throw new RequiredObjectIsNullException();
 
-		logger.info("Creating one book");
+		logger.info("Incluindo um livro!");
 		var entity = DozerMapper.parseObject(book, Book.class);
 		var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
@@ -62,10 +62,10 @@ public class BookServices {
 		if (book == null)
 			throw new RequiredObjectIsNullException();
 
-		logger.info("Updating one book");
+		logger.info("Atualizando um livro!");
 
 		var entity = repository.findById(book.getKey())
-				.orElseThrow(() -> new ResourceNotFoundException("No records founds for this ID!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 
 		entity.setAuthor(book.getAuthor());
 		entity.setLauncDate(book.getLauncDate());
@@ -81,7 +81,7 @@ public class BookServices {
 		logger.info("Deleting one book!");
 
 		var entity = repository.findById(id)
-				.orElseThrow(() -> new RequiredObjectIsNullException("No records found for this ID!"));
+				.orElseThrow(() -> new RequiredObjectIsNullException("Nenhum registro encontrado para este ID!"));
 		repository.delete(entity);
 	}
 
