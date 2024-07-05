@@ -12,8 +12,8 @@ public class OpenApiConfig {
 
 	@Bean
 	OpenAPI customOpenAPI() {
-		return new OpenAPI().info(new Info().title("RestFul API with Java 21 and Spring 3.3.1").version("v1")
-				.description("Some description about your API").termsOfService("https://")
+		return new OpenAPI().info(new Info().title("RestFul API com Java 21 e Spring 3.3.1").version("v1")
+				.description("Descrições sobre a API").termsOfService("https://")
 				.license(new License().name("Apache 2.0").url("https://")));
 	}
 
